@@ -1,0 +1,133 @@
+<div align="center">
+  <h1>⬡ AtriumMind — Frontend</h1>
+  <p><strong>Advanced Stellar-powered knowledge vault marketplace</strong></p>
+  <p>
+    <a href="https://github.com/bolu26/AtriumMind-frontend/actions"><img src="https://github.com/bolu26/AtriumMind-frontend/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <img src="https://img.shields.io/badge/React-18-61dafb" alt="React 18">
+    <img src="https://img.shields.io/badge/TypeScript-5-blue" alt="TypeScript">
+    <img src="https://img.shields.io/badge/Stellar-Soroban-7D00FF" alt="Stellar">
+    <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT">
+  </p>
+</div>
+
+---
+
+## What is AtriumMind?
+
+AtriumMind is a decentralised marketplace where creators publish **paywalled digital resources** — APIs, datasets, documents, and research — secured by **x402 Stellar micropayments** and **Soroban smart contracts**. Buyers pay once (or subscribe) and get on-chain proof of access.
+
+This repo is the **React/Vite web UI**.
+
+## Architecture
+
+```
+Browser (React/Vite)
+    │  Freighter wallet (Stellar)
+    │  x402/fetch — payment over HTTP
+    ▼
+AtriumMind-backend  (Express + Supabase)
+    │  Stellar Horizon RPC
+    ▼
+AtriumMind-contracts  (Soroban — vault-registry, access-lease, subscription)
+```
+
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Framework | React 18 + TypeScript |
+| Build | Vite |
+| Styling | Tailwind CSS + custom design system (CSS vars) |
+| Wallet | Stellar Freighter via `@stellar/freighter-api` |
+| Payments | x402 protocol via `@x402/fetch` + `@x402/stellar` |
+| i18n | i18next (English + Español included) |
+| Testing | Vitest + React Testing Library |
+| Error tracking | Sentry |
+| Deployment | Vercel (via GitHub Actions) |
+
+## Quick start
+
+```bash
+# Prerequisites: Node 20+, pnpm
+git clone https://github.com/bolu26/AtriumMind-frontend
+cd AtriumMind-frontend
+pnpm install
+
+# Environment
+cp .env.example .env
+# Edit .env — set VITE_API_URL to your backend, VITE_API_KEY if you're a publisher
+
+pnpm dev       # http://localhost:5173
+pnpm test      # unit tests
+pnpm build     # production build → dist/
+```
+
+## Docker
+
+```bash
+docker build \
+  --build-arg VITE_API_URL=https://api.yourdomain.com \
+  --build-arg VITE_NETWORK=mainnet \
+  -t atriumind-frontend .
+
+docker run -p 8080:80 atriumind-frontend
+```
+
+## Environment variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `VITE_API_URL` | ✅ | Backend API base URL |
+| `VITE_API_KEY` | Publisher only | API key for creator features |
+| `VITE_NETWORK` | ✅ | `testnet` or `mainnet` |
+| `VITE_SENTRY_DSN` | ❌ | Sentry DSN for error tracking |
+
+## Workflow
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full branch strategy and commit format.
+
+### CI/CD pipeline
+
+```
+Push to feat/* ──► CI (lint + typecheck + test)
+                         │
+Merge to dev   ──► CI + preview deploy
+                         │
+Merge to main  ──► CI + production deploy (Vercel)
+```
+
+## Design system
+
+All design tokens live as CSS custom properties in `src/index.css`.
+
+| Token | Value | Use |
+|---|---|---|
+| `--atrium-bg` | `#0a0d14` | Page background |
+| `--atrium-surface` | `#111622` | Cards, sidebar |
+| `--atrium-violet` | `#7c5cfc` | Primary accent |
+| `--atrium-cyan` | `#22d3ee` | Secondary accent |
+| `--font-display` | Sora | Headings, brand |
+| `--font-body` | Inter | Body copy |
+| `--font-mono` | JetBrains Mono | Addresses, prices |
+
+## Screens
+
+| Tab | Description |
+|---|---|
+| Catalog | Browse + search + filter all listed resources |
+| My Vault | Creator dashboard — manage, price, register your resources |
+| Analytics | Revenue charts, access counts, payment history |
+| Purchases | All resources you've bought |
+| Leaderboard | Top publishers by revenue |
+| Agent | AI agent status and live reasoning feed |
+
+## Repo siblings
+
+| Repo | Description |
+|---|---|
+| [AtriumMind-backend](https://github.com/bolu26/AtriumMind-backend) | Express API + Supabase |
+| [AtriumMind-contracts](https://github.com/bolu26/AtriumMind-contracts) | Soroban smart contracts |
+
+## License
+
+MIT © 2025 bolu26
