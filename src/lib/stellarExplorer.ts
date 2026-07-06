@@ -1,4 +1,10 @@
-import { networks, type ExplorerNetwork } from "@atriumind/registry-client";
+// Inlined from @atriumind/registry-client
+type ExplorerNetwork = "testnet" | "public";
+interface NetworkPreset { explorerNetwork: ExplorerNetwork; x402Network: string; networkPassphrase: string; sorobanRpcUrl: string; horizonUrl: string; usdcSacContractId: string; }
+const networks: Record<string, NetworkPreset> = {
+  testnet: { explorerNetwork: "testnet", x402Network: "stellar:testnet", networkPassphrase: "Test SDF Network ; September 2015", sorobanRpcUrl: "https://soroban-testnet.stellar.org", horizonUrl: "https://horizon-testnet.stellar.org", usdcSacContractId: "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA" },
+  mainnet: { explorerNetwork: "public", x402Network: "stellar:pubnet", networkPassphrase: "Public Global Stellar Network ; September 2015", sorobanRpcUrl: "https://soroban.stellar.org", horizonUrl: "https://horizon.stellar.org", usdcSacContractId: "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75" },
+};
 
 export type StellarNetwork = ExplorerNetwork;
 
