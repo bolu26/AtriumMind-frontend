@@ -1,4 +1,4 @@
-import { type Resource, Networks } from "@atriumind/registry-client";
+import { Networks } from "@stellar/stellar-sdk";
 import { signedPublisherFetch } from "./requestSignature.js";
 
 export type { Resource };
