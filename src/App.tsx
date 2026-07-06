@@ -251,14 +251,14 @@ export default function App() {
         </div>
         <select className="atrium-input atrium-select" style={{ width: "auto", flexShrink: 0 }}
           value={filters.resourceType}
-          onChange={(e) => setFilters((f) => ({ ...f, resourceType: e.target.value }))}>
+          onChange={(e) => setFilters((f) => ({ ...f, resourceType: e.target.value as "all" | "file" | "link" }))}>
           <option value="all">All types</option>
           <option value="file">Files</option>
           <option value="link">Links</option>
         </select>
         <select className="atrium-input atrium-select" style={{ width: "auto", flexShrink: 0 }}
           value={filters.verificationStatus}
-          onChange={(e) => setFilters((f) => ({ ...f, verificationStatus: e.target.value }))}>
+          onChange={(e) => setFilters((f) => ({ ...f, verificationStatus: e.target.value as "all" | "verified" | "pending" | "rejected" }))}>
           <option value="all">All status</option>
           <option value="verified">Verified</option>
           <option value="pending">Pending</option>
@@ -316,14 +316,14 @@ export default function App() {
                     <StatusTag status={r.onchainStatus}      type="chain"  />
                     {r.onchainStatus === "registered" && r.onchainTxHash && (
                       <ExplorerLink type="tx" value={r.onchainTxHash}
-                        className="atrium-card__tag atrium-card__tag--onchain" style={{ cursor: "pointer" }}>
+                        className="atrium-card__tag atrium-card__tag--onchain">
                         View tx ↗
                       </ExplorerLink>
                     )}
                   </div>
                   <div className="atrium-resource-card__footer">
                     <ExplorerLink type="account" value={r.walletAddress}
-                      className="atrium-resource-card__addr" title={r.walletAddress}>
+                      className="atrium-resource-card__addr">
                       {r.walletAddress}
                     </ExplorerLink>
                     <div className="atrium-resource-card__actions">
