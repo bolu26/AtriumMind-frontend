@@ -1,4 +1,18 @@
 import { Networks } from "@stellar/stellar-sdk";
+
+export interface Resource {
+  id: string;
+  title: string;
+  price: string;
+  resourceType: string;
+  publisherName?: string;
+  walletAddress: string;
+  verificationStatus: string;
+  onchainStatus: string;
+  onchainTxHash?: string;
+  listed: boolean;
+  accessUrl: string;
+}
 import { signedPublisherFetch } from "./requestSignature.js";
 
 export type { Resource };
